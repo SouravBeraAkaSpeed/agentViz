@@ -1,11 +1,11 @@
 {
-    "name": "flowise-ui",
+    "name": "agentViz-ui",
     "version": "3.0.0",
     "license": "SEE LICENSE IN LICENSE.md",
-    "homepage": "https://flowiseai.com",
+    "homepage": "https://agentVizai.com",
     "author": {
         "name": "HenryHeng",
-        "email": "henryheng@flowiseai.com"
+        "email": "henryheng@agentVizai.com"
     },
     "dependencies": {
         "@codemirror/lang-javascript": "^6.2.1",
@@ -35,9 +35,9 @@
         "axios": "1.7.9",
         "clsx": "^1.1.1",
         "dotenv": "^16.0.0",
-        "flowise-embed": "latest",
-        "flowise-embed-react": "latest",
-        "flowise-react-json-view": "*",
+        "agentViz-embed": "latest",
+        "agentViz-embed-react": "latest",
+        "agentViz-react-json-view": "*",
         "formik": "^2.2.6",
         "framer-motion": "^4.1.13",
         "history": "^5.0.0",

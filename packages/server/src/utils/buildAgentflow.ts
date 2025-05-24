@@ -12,7 +12,7 @@ import {
     IServerSideEventStreamer,
     convertChatHistoryToText,
     generateFollowUpPrompts
-} from 'flowise-components'
+} from 'agentViz-components'
 import {
     IncomingAgentflowInput,
     INodeData,
@@ -201,7 +201,7 @@ export const _removeCredentialId = (obj: any): any => {
 
     const newObj: Record<string, any> = {}
     for (const [key, value] of Object.entries(obj)) {
-        if (key === 'FLOWISE_CREDENTIAL_ID') continue
+        if (key === 'agentViz_CREDENTIAL_ID') continue
         newObj[key] = _removeCredentialId(value)
     }
     return newObj

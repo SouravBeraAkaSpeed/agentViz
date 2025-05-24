@@ -24,7 +24,7 @@ export class MCPToolkit extends BaseToolkit {
     async createClient(): Promise<Client> {
         const client = new Client(
             {
-                name: 'flowise-client',
+                name: 'agentViz-client',
                 version: '1.0.0'
             },
             {

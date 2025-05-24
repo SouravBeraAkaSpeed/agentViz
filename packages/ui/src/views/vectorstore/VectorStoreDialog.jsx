@@ -578,7 +578,7 @@ formData.append("openAIApiKey[openAIEmbeddings_0]", "sk-my-openai-2nd-key")`
                                                                             <a
                                                                                 rel='noreferrer'
                                                                                 target='_blank'
-                                                                                href='https://docs.flowiseai.com/using-flowise/api#override-config'
+                                                                                href='https://docs.agentVizai.com/using-agentViz/api#override-config'
                                                                             >
                                                                                 here
                                                                             </a>{' '}

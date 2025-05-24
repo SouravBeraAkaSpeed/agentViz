@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalagentVizError } from '../../errors/internalagentVizError'
 import { getErrorMessage } from '../../errors/utils'
 import {
     buildFlow,
@@ -13,13 +13,13 @@ import {
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { ChatFlow } from '../../database/entities/ChatFlow'
 import { IDepthQueue, IReactFlowNode } from '../../Interface'
-import { ICommonObject, INodeData } from 'flowise-components'
+import { ICommonObject, INodeData } from 'agentViz-components'
 import { convertToOpenAIFunction } from '@langchain/core/utils/function_calling'
 import { v4 as uuidv4 } from 'uuid'
 import { Variable } from '../../database/entities/Variable'
 
-const SOURCE_DOCUMENTS_PREFIX = '\n\n----FLOWISE_SOURCE_DOCUMENTS----\n\n'
-const ARTIFACTS_PREFIX = '\n\n----FLOWISE_ARTIFACTS----\n\n'
+const SOURCE_DOCUMENTS_PREFIX = '\n\n----agentViz_SOURCE_DOCUMENTS----\n\n'
+const ARTIFACTS_PREFIX = '\n\n----agentViz_ARTIFACTS----\n\n'
 
 const buildAndInitTool = async (chatflowid: string, _chatId?: string, _apiMessageId?: string) => {
     const appServer = getRunningExpressApp()
@@ -27,7 +27,7 @@ const buildAndInitTool = async (chatflowid: string, _chatId?: string, _apiMessag
         id: chatflowid
     })
     if (!chatflow) {
-        throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowid} not found`)
+        throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowid} not found`)
     }
 
     const chatId = _chatId || uuidv4()
@@ -40,7 +40,7 @@ const buildAndInitTool = async (chatflowid: string, _chatId?: string, _apiMessag
         (node: IReactFlowNode) => node.data.inputAnchors.find((acr) => acr.type === 'Tool') && node.data.category === 'Agents'
     )
     if (!toolAgentNode) {
-        throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Agent with tools not found in chatflow ${chatflowid}`)
+        throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Agent with tools not found in chatflow ${chatflowid}`)
     }
 
     const { graph, nodeDependencies } = constructGraphs(nodes, edges)
@@ -89,7 +89,7 @@ const buildAndInitTool = async (chatflowid: string, _chatId?: string, _apiMessag
             : reactFlowNodes[reactFlowNodes.length - 1]
 
     if (!nodeToExecute) {
-        throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Node not found`)
+        throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Node not found`)
     }
 
     const flowDataObj: ICommonObject = { chatflowid, chatId }
@@ -127,7 +127,7 @@ const getAgentTools = async (chatflowid: string): Promise<any> => {
         const tools = agent.tools
         return tools.map(convertToOpenAIFunction)
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: openaiRealTimeService.getAgentTools - ${getErrorMessage(error)}`
         )
@@ -147,7 +147,7 @@ const executeAgentTool = async (
         const tool = tools.find((tool: any) => tool.name === toolName)
 
         if (!tool) {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Tool ${toolName} not found`)
+            throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Tool ${toolName} not found`)
         }
 
         const inputArgsObj = typeof inputArgs === 'string' ? JSON.parse(inputArgs) : inputArgs
@@ -188,7 +188,7 @@ const executeAgentTool = async (
             artifacts
         }
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: openaiRealTimeService.executeAgentTool - ${getErrorMessage(error)}`
         )

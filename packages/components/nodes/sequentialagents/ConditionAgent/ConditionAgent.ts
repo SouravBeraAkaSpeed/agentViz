@@ -27,7 +27,7 @@ import {
     filterConversationHistory,
     restructureMessages
 } from '../commonUtils'
-import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/FlowiseChatGoogleGenerativeAI'
+import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/agentVizChatGoogleGenerativeAI'
 
 interface IConditionGridItem {
     variable: string
@@ -157,7 +157,7 @@ class ConditionAgent_SeqAgents implements INode {
         this.category = 'Sequential Agents'
         this.description = 'Uses an agent to determine which route to take next'
         this.baseClasses = [this.type]
-        this.documentation = 'https://docs.flowiseai.com/using-flowise/agentflows/sequential-agents#id-8.-conditional-agent-node'
+        this.documentation = 'https://docs.agentVizai.com/using-agentViz/agentflows/sequential-agents#id-8.-conditional-agent-node'
         this.inputs = [
             {
                 label: 'Name',

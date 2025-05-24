@@ -366,7 +366,7 @@ class LLM_Agentflow implements INode {
             const newLLMNodeInstance = new nodeModule.nodeClass()
             const newNodeData = {
                 ...nodeData,
-                credential: modelConfig['FLOWISE_CREDENTIAL_ID'],
+                credential: modelConfig['agentViz_CREDENTIAL_ID'],
                 inputs: {
                     ...nodeData.inputs,
                     ...modelConfig

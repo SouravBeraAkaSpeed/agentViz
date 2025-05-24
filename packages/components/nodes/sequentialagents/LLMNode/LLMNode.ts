@@ -37,7 +37,7 @@ import {
     restructureMessages,
     checkMessageHistory
 } from '../commonUtils'
-import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/FlowiseChatGoogleGenerativeAI'
+import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/agentVizChatGoogleGenerativeAI'
 
 const TAB_IDENTIFIER = 'selectedUpdateStateMemoryTab'
 const customOutputFuncDesc = `This is only applicable when you have a custom State at the START node. After agent execution, you might want to update the State values`
@@ -188,7 +188,7 @@ class LLMNode_SeqAgents implements INode {
         this.category = 'Sequential Agents'
         this.description = 'Run Chat Model and return the output'
         this.baseClasses = [this.type]
-        this.documentation = 'https://docs.flowiseai.com/using-flowise/agentflows/sequential-agents#id-5.-llm-node'
+        this.documentation = 'https://docs.agentVizai.com/using-agentViz/agentflows/sequential-agents#id-5.-llm-node'
         this.inputs = [
             {
                 label: 'Name',

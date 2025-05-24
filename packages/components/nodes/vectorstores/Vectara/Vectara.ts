@@ -62,7 +62,7 @@ class Vectara_VectorStores implements INode {
                 label: 'Metadata Filter',
                 name: 'filter',
                 description:
-                    'Filter to apply to Vectara metadata. Refer to the <a target="_blank" href="https://docs.flowiseai.com/vector-stores/vectara">documentation</a> on how to use Vectara filters with Flowise.',
+                    'Filter to apply to Vectara metadata. Refer to the <a target="_blank" href="https://docs.agentVizai.com/vector-stores/vectara">documentation</a> on how to use Vectara filters with agentViz.',
                 type: 'string',
                 additionalParams: true,
                 optional: true
@@ -162,7 +162,7 @@ class Vectara_VectorStores implements INode {
                 apiKey: apiKey,
                 customerId: customerId,
                 corpusId: corpusId,
-                source: 'flowise'
+                source: 'agentViz'
             }
 
             const vectaraFilter: VectaraFilter = {}
@@ -249,7 +249,7 @@ class Vectara_VectorStores implements INode {
             apiKey: apiKey,
             customerId: customerId,
             corpusId: corpusId,
-            source: 'flowise'
+            source: 'agentViz'
         }
 
         const vectaraFilter: VectaraFilter = {}

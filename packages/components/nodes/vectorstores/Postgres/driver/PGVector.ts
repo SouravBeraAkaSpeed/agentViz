@@ -3,7 +3,7 @@
 * Use TypeORM instead
 
 import { VectorStoreDriver } from './Base'
-import { FLOWISE_CHATID } from '../../../../src'
+import { agentViz_CHATID } from '../../../../src'
 import { DistanceStrategy, PGVectorStore, PGVectorStoreArgs } from '@langchain/community/vectorstores/pgvector'
 import { Document } from '@langchain/core/documents'
 import { PoolConfig } from 'pg'
@@ -71,7 +71,7 @@ export class PGVectorDriver extends VectorStoreDriver {
     }
 
     protected async adaptInstance(instance: PGVectorStore, metadataFilters?: any): Promise<PGVectorStore> {
-        const { [FLOWISE_CHATID]: chatId, ...pgMetadataFilter } = metadataFilters || {}
+        const { [agentViz_CHATID]: chatId, ...pgMetadataFilter } = metadataFilters || {}
 
         const baseSimilaritySearchVectorWithScoreFn = instance.similaritySearchVectorWithScore.bind(instance)
 
@@ -91,21 +91,21 @@ export class PGVectorDriver extends VectorStoreDriver {
             let chatflowOr = ''
 
             // Match chatflow uploaded file and keep filtering on other files:
-            // https://github.com/FlowiseAI/Flowise/pull/3367#discussion_r1804229295
+            // https://github.com/agentVizAI/agentViz/pull/3367#discussion_r1804229295
             if (chatId) {
-                parameters.push({ [FLOWISE_CHATID]: chatId })
+                parameters.push({ [agentViz_CHATID]: chatId })
 
                 chatflowOr = `OR metadata @> $${parameters.length}`
             }
 
             if (queryString.match(whereClauseRegex)) {
-                queryString = queryString.replace(whereClauseRegex, `WHERE (($1) AND NOT (metadata ? '${FLOWISE_CHATID}')) ${chatflowOr}`)
+                queryString = queryString.replace(whereClauseRegex, `WHERE (($1) AND NOT (metadata ? '${agentViz_CHATID}')) ${chatflowOr}`)
             } else {
                 const orderByClauseRegex = /ORDER BY (.*)/
                 // Insert WHERE clause before ORDER BY
                 queryString = queryString.replace(
                     orderByClauseRegex,
-                    `WHERE (metadata @> '{}' AND NOT (metadata ? '${FLOWISE_CHATID}')) ${chatflowOr}
+                    `WHERE (metadata @> '{}' AND NOT (metadata ? '${agentViz_CHATID}')) ${chatflowOr}
                 ORDER BY $1
                 `
                 )

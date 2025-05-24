@@ -12,9 +12,9 @@ enum EXIT_CODE {
 
 export abstract class BaseCommand extends Command {
     static flags = {
-        FLOWISE_USERNAME: Flags.string(),
-        FLOWISE_PASSWORD: Flags.string(),
-        FLOWISE_FILE_SIZE_LIMIT: Flags.string(),
+        agentViz_USERNAME: Flags.string(),
+        agentViz_PASSWORD: Flags.string(),
+        agentViz_FILE_SIZE_LIMIT: Flags.string(),
         PORT: Flags.string(),
         CORS_ORIGINS: Flags.string(),
         IFRAME_ORIGINS: Flags.string(),
@@ -55,7 +55,7 @@ export abstract class BaseCommand extends Command {
         SHOW_COMMUNITY_NODES: Flags.string(),
         SECRETKEY_STORAGE_TYPE: Flags.string(),
         SECRETKEY_PATH: Flags.string(),
-        FLOWISE_SECRETKEY_OVERWRITE: Flags.string(),
+        agentViz_SECRETKEY_OVERWRITE: Flags.string(),
         SECRETKEY_AWS_ACCESS_KEY: Flags.string(),
         SECRETKEY_AWS_SECRET_KEY: Flags.string(),
         SECRETKEY_AWS_REGION: Flags.string(),
@@ -88,13 +88,13 @@ export abstract class BaseCommand extends Command {
             try {
                 // Shut down the app after timeout if it ever stuck removing pools
                 setTimeout(async () => {
-                    logger.info('Flowise was forced to shut down after 30 secs')
+                    logger.info('agentViz was forced to shut down after 30 secs')
                     await this.failExit()
                 }, 30000)
 
                 await this.stopProcess()
             } catch (error) {
-                logger.error('There was an error shutting down Flowise...', error)
+                logger.error('There was an error shutting down agentViz...', error)
             }
         }
     }
@@ -133,18 +133,18 @@ export abstract class BaseCommand extends Command {
         if (flags.DISABLED_NODES) process.env.DISABLED_NODES = flags.DISABLED_NODES
 
         // Authorization
-        if (flags.FLOWISE_USERNAME) process.env.FLOWISE_USERNAME = flags.FLOWISE_USERNAME
-        if (flags.FLOWISE_PASSWORD) process.env.FLOWISE_PASSWORD = flags.FLOWISE_PASSWORD
+        if (flags.agentViz_USERNAME) process.env.agentViz_USERNAME = flags.agentViz_USERNAME
+        if (flags.agentViz_PASSWORD) process.env.agentViz_PASSWORD = flags.agentViz_PASSWORD
         if (flags.APIKEY_STORAGE_TYPE) process.env.APIKEY_STORAGE_TYPE = flags.APIKEY_STORAGE_TYPE
         if (flags.APIKEY_PATH) process.env.APIKEY_PATH = flags.APIKEY_PATH
 
         // API Configuration
-        if (flags.FLOWISE_FILE_SIZE_LIMIT) process.env.FLOWISE_FILE_SIZE_LIMIT = flags.FLOWISE_FILE_SIZE_LIMIT
+        if (flags.agentViz_FILE_SIZE_LIMIT) process.env.agentViz_FILE_SIZE_LIMIT = flags.agentViz_FILE_SIZE_LIMIT
 
         // Credentials
         if (flags.SECRETKEY_STORAGE_TYPE) process.env.SECRETKEY_STORAGE_TYPE = flags.SECRETKEY_STORAGE_TYPE
         if (flags.SECRETKEY_PATH) process.env.SECRETKEY_PATH = flags.SECRETKEY_PATH
-        if (flags.FLOWISE_SECRETKEY_OVERWRITE) process.env.FLOWISE_SECRETKEY_OVERWRITE = flags.FLOWISE_SECRETKEY_OVERWRITE
+        if (flags.agentViz_SECRETKEY_OVERWRITE) process.env.agentViz_SECRETKEY_OVERWRITE = flags.agentViz_SECRETKEY_OVERWRITE
         if (flags.SECRETKEY_AWS_ACCESS_KEY) process.env.SECRETKEY_AWS_ACCESS_KEY = flags.SECRETKEY_AWS_ACCESS_KEY
         if (flags.SECRETKEY_AWS_SECRET_KEY) process.env.SECRETKEY_AWS_SECRET_KEY = flags.SECRETKEY_AWS_SECRET_KEY
         if (flags.SECRETKEY_AWS_REGION) process.env.SECRETKEY_AWS_REGION = flags.SECRETKEY_AWS_REGION

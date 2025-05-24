@@ -356,7 +356,7 @@ export interface MemoryMethods {
     clearChatMessages(overrideSessionId?: string): Promise<void>
 }
 
-export abstract class FlowiseMemory extends BufferMemory implements MemoryMethods {
+export abstract class agentVizMemory extends BufferMemory implements MemoryMethods {
     abstract getChatMessages(
         overrideSessionId?: string,
         returnBaseMessages?: boolean,
@@ -366,7 +366,7 @@ export abstract class FlowiseMemory extends BufferMemory implements MemoryMethod
     abstract clearChatMessages(overrideSessionId?: string): Promise<void>
 }
 
-export abstract class FlowiseWindowMemory extends BufferWindowMemory implements MemoryMethods {
+export abstract class agentVizWindowMemory extends BufferWindowMemory implements MemoryMethods {
     abstract getChatMessages(
         overrideSessionId?: string,
         returnBaseMessages?: boolean,
@@ -376,7 +376,7 @@ export abstract class FlowiseWindowMemory extends BufferWindowMemory implements 
     abstract clearChatMessages(overrideSessionId?: string): Promise<void>
 }
 
-export abstract class FlowiseSummaryMemory extends ConversationSummaryMemory implements MemoryMethods {
+export abstract class agentVizSummaryMemory extends ConversationSummaryMemory implements MemoryMethods {
     abstract getChatMessages(
         overrideSessionId?: string,
         returnBaseMessages?: boolean,
@@ -386,7 +386,7 @@ export abstract class FlowiseSummaryMemory extends ConversationSummaryMemory imp
     abstract clearChatMessages(overrideSessionId?: string): Promise<void>
 }
 
-export abstract class FlowiseSummaryBufferMemory extends ConversationSummaryBufferMemory implements MemoryMethods {
+export abstract class agentVizSummaryBufferMemory extends ConversationSummaryBufferMemory implements MemoryMethods {
     abstract getChatMessages(
         overrideSessionId?: string,
         returnBaseMessages?: boolean,

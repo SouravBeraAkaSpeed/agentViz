@@ -1,16 +1,16 @@
 version: '3.1'
 
 services:
-    flowise:
-        image: flowiseai/flowise
+    agentViz:
+        image: agentVizai/agentViz
         restart: always
         environment:
             - PORT=${PORT}
             - CORS_ORIGINS=${CORS_ORIGINS}
             - IFRAME_ORIGINS=${IFRAME_ORIGINS}
-            - FLOWISE_USERNAME=${FLOWISE_USERNAME}
-            - FLOWISE_PASSWORD=${FLOWISE_PASSWORD}
-            - FLOWISE_FILE_SIZE_LIMIT=${FLOWISE_FILE_SIZE_LIMIT}
+            - agentViz_USERNAME=${agentViz_USERNAME}
+            - agentViz_PASSWORD=${agentViz_PASSWORD}
+            - agentViz_FILE_SIZE_LIMIT=${agentViz_FILE_SIZE_LIMIT}
             - DEBUG=${DEBUG}
             - DATABASE_PATH=${DATABASE_PATH}
             - DATABASE_TYPE=${DATABASE_TYPE}
@@ -24,7 +24,7 @@ services:
             - APIKEY_STORAGE_TYPE=${APIKEY_STORAGE_TYPE}
             - APIKEY_PATH=${APIKEY_PATH}
             - SECRETKEY_PATH=${SECRETKEY_PATH}
-            - FLOWISE_SECRETKEY_OVERWRITE=${FLOWISE_SECRETKEY_OVERWRITE}
+            - agentViz_SECRETKEY_OVERWRITE=${agentViz_SECRETKEY_OVERWRITE}
             - LOG_LEVEL=${LOG_LEVEL}
             - LOG_PATH=${LOG_PATH}
             - BLOB_STORAGE_PATH=${BLOB_STORAGE_PATH}
@@ -59,5 +59,5 @@ services:
             retries: 5
             start_period: 30s
         volumes:
-            - ~/.flowise:/root/.flowise
-        entrypoint: /bin/sh -c "sleep 3; flowise start"
+            - ~/.agentViz:/root/.agentViz
+        entrypoint: /bin/sh -c "sleep 3; agentViz start"

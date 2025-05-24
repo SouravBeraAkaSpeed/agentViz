@@ -247,7 +247,7 @@ class FireCrawlLoader extends BaseDocumentLoader {
     }
 }
 
-// Flowise Node Class
+// agentViz Node Class
 class FireCrawl_DocumentLoaders implements INode {
     label: string
     name: string
@@ -288,7 +288,7 @@ class FireCrawl_DocumentLoaders implements INode {
                 name: 'url',
                 type: 'string',
                 description: 'URL to be crawled/scraped',
-                placeholder: 'https://docs.flowiseai.com'
+                placeholder: 'https://docs.agentVizai.com'
             },
             {
                 label: 'Crawler type',

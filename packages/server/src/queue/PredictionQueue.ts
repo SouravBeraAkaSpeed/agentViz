@@ -8,7 +8,7 @@ import { AbortControllerPool } from '../AbortControllerPool'
 import { BaseQueue } from './BaseQueue'
 import { RedisOptions } from 'bullmq'
 import logger from '../utils/logger'
-import { generateAgentflowv2 as generateAgentflowv2_json } from 'flowise-components'
+import { generateAgentflowv2 as generateAgentflowv2_json } from 'agentViz-components'
 import { databaseEntities } from '../utils'
 import { executeCustomNodeFunction } from '../utils/executeCustomNodeFunction'
 

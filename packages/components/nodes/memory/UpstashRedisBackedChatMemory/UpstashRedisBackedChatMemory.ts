@@ -2,7 +2,7 @@ import { Redis } from '@upstash/redis'
 import { BufferMemory, BufferMemoryInput } from 'langchain/memory'
 import { UpstashRedisChatMessageHistory } from '@langchain/community/stores/message/upstash_redis'
 import { mapStoredMessageToChatMessage, AIMessage, HumanMessage, StoredMessage, BaseMessage } from '@langchain/core/messages'
-import { FlowiseMemory, IMessage, INode, INodeData, INodeParams, MemoryMethods, MessageType } from '../../../src/Interface'
+import { agentVizMemory, IMessage, INode, INodeData, INodeParams, MemoryMethods, MessageType } from '../../../src/Interface'
 import {
     convertBaseMessagetoIMessage,
     getBaseClasses,
@@ -52,7 +52,7 @@ class UpstashRedisBackedChatMemory_Memory implements INode {
                 name: 'sessionId',
                 type: 'string',
                 description:
-                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.flowiseai.com/memory/long-term-memory#ui-and-embedded-chat">more</a>',
+                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.agentVizai.com/memory/long-term-memory#ui-and-embedded-chat">more</a>',
                 default: '',
                 additionalParams: true,
                 optional: true
@@ -118,7 +118,7 @@ interface BufferMemoryExtendedInput {
     sessionTTL?: number
 }
 
-class BufferMemoryExtended extends FlowiseMemory implements MemoryMethods {
+class BufferMemoryExtended extends agentVizMemory implements MemoryMethods {
     sessionId = ''
     redisClient: Redis
     sessionTTL?: number

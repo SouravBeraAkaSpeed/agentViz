@@ -9,7 +9,7 @@ import {
     IServerSideEventStreamer
 } from '../../../src/Interface'
 import { availableDependencies, defaultAllowBuiltInDep, getVars, prepareSandboxVars } from '../../../src/utils'
-import { NodeVM } from '@flowiseai/nodevm'
+import { NodeVM } from '@agentVizai/nodevm'
 import { updateFlowState } from '../utils'
 
 interface ICustomFunctionInputVariables {
@@ -18,7 +18,7 @@ interface ICustomFunctionInputVariables {
 }
 
 const exampleFunc = `/*
-* You can use any libraries imported in Flowise
+* You can use any libraries imported in agentViz
 * You can use properties specified in Input Schema as variables. Ex: Property = userid, Variable = $userid
 * You can get default flow config: $flow.sessionId, $flow.chatId, $flow.chatflowId, $flow.input, $flow.state
 * You can get custom variables: $vars.<variable-name>

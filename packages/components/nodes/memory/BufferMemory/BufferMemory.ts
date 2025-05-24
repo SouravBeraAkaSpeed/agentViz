@@ -1,5 +1,5 @@
 import {
-    FlowiseMemory,
+    agentVizMemory,
     IDatabaseEntity,
     ICommonObject,
     IMessage,
@@ -39,7 +39,7 @@ class BufferMemory_Memory implements INode {
                 name: 'sessionId',
                 type: 'string',
                 description:
-                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.flowiseai.com/memory#ui-and-embedded-chat">more</a>',
+                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.agentVizai.com/memory#ui-and-embedded-chat">more</a>',
                 default: '',
                 additionalParams: true,
                 optional: true
@@ -80,7 +80,7 @@ interface BufferMemoryExtendedInput {
     chatflowid: string
 }
 
-class BufferMemoryExtended extends FlowiseMemory implements MemoryMethods {
+class BufferMemoryExtended extends agentVizMemory implements MemoryMethods {
     appDataSource: DataSource
     databaseEntities: IDatabaseEntity
     chatflowid: string

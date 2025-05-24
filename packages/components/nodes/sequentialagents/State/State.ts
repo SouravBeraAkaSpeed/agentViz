@@ -1,5 +1,5 @@
 import { START } from '@langchain/langgraph'
-import { NodeVM } from '@flowiseai/nodevm'
+import { NodeVM } from '@agentVizai/nodevm'
 import { DataSource } from 'typeorm'
 import { ICommonObject, IDatabaseEntity, INode, INodeData, INodeParams, ISeqAgentNode } from '../../../src/Interface'
 import { availableDependencies, defaultAllowBuiltInDep, getVars, prepareSandboxVars } from '../../../src/utils'
@@ -47,7 +47,7 @@ class State_SeqAgents implements INode {
         this.category = 'Sequential Agents'
         this.description = 'A centralized state object, updated by nodes in the graph, passing from one node to another'
         this.baseClasses = [this.type]
-        this.documentation = 'https://docs.flowiseai.com/using-flowise/agentflows/sequential-agents#id-3.-state-node'
+        this.documentation = 'https://docs.agentVizai.com/using-agentViz/agentflows/sequential-agents#id-3.-state-node'
         this.inputs = [
             {
                 label: 'Custom State',

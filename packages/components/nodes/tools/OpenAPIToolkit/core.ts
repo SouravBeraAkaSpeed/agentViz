@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { RequestInit } from 'node-fetch'
-import { NodeVM } from '@flowiseai/nodevm'
+import { NodeVM } from '@agentVizai/nodevm'
 import { RunnableConfig } from '@langchain/core/runnables'
 import { StructuredTool, ToolParams } from '@langchain/core/tools'
 import { CallbackManagerForToolRun, Callbacks, CallbackManager, parseCallbackConfigArg } from '@langchain/core/callbacks/manager'
@@ -41,7 +41,7 @@ try {
 }
 `
 export const howToUseCode = `- **Libraries:**  
-  You can use any libraries imported in Flowise.
+  You can use any libraries imported in agentViz.
 
 - **Tool Input Arguments:**  
   Tool input arguments are available as the following variables:

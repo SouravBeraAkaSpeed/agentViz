@@ -49,16 +49,16 @@ class Mem0_Memory implements INode {
                 label: 'User ID',
                 name: 'user_id',
                 type: 'string',
-                description: 'Unique identifier for the user. Required only if "Use Flowise Chat ID" is OFF.',
-                default: 'flowise-default-user',
+                description: 'Unique identifier for the user. Required only if "Use agentViz Chat ID" is OFF.',
+                default: 'agentViz-default-user',
                 optional: true
             },
-            // Added toggle to use Flowise chat ID
+            // Added toggle to use agentViz chat ID
             {
-                label: 'Use Flowise Chat ID',
-                name: 'useFlowiseChatId',
+                label: 'Use agentViz Chat ID',
+                name: 'useagentVizChatId',
                 type: 'boolean',
-                description: 'Use the Flowise internal Chat ID as the Mem0 User ID, overriding the "User ID" field above.',
+                description: 'Use the agentViz internal Chat ID as the Mem0 User ID, overriding the "User ID" field above.',
                 default: false,
                 optional: true
             },
@@ -150,10 +150,10 @@ class Mem0_Memory implements INode {
 
 const initializeMem0 = async (nodeData: INodeData, options: ICommonObject): Promise<BaseMem0Memory> => {
     const initialUserId = nodeData.inputs?.user_id as string
-    const useFlowiseChatId = nodeData.inputs?.useFlowiseChatId as boolean
+    const useagentVizChatId = nodeData.inputs?.useagentVizChatId as boolean
 
-    if (!useFlowiseChatId && !initialUserId) {
-        throw new Error('User ID field cannot be empty when "Use Flowise Chat ID" is OFF.')
+    if (!useagentVizChatId && !initialUserId) {
+        throw new Error('User ID field cannot be empty when "Use agentViz Chat ID" is OFF.')
     }
 
     const credentialData = await getCredentialData(nodeData.credential ?? '', options)
@@ -168,7 +168,7 @@ const initializeMem0 = async (nodeData: INodeData, options: ICommonObject): Prom
 
     const memOptionsUserId = initialUserId
 
-    const constructorSessionId = initialUserId || (useFlowiseChatId ? 'flowise-chat-id-placeholder' : '')
+    const constructorSessionId = initialUserId || (useagentVizChatId ? 'agentViz-chat-id-placeholder' : '')
 
     const memoryOptions: MemoryOptions & SearchOptions = {
         user_id: memOptionsUserId,
@@ -183,7 +183,7 @@ const initializeMem0 = async (nodeData: INodeData, options: ICommonObject): Prom
         filters: (nodeData.inputs?.filters as Record<string, any>) || {}
     }
 
-    const obj: Mem0MemoryInput & Mem0MemoryExtendedInput & BufferMemoryExtendedInput & { searchOnly: boolean; useFlowiseChatId: boolean } =
+    const obj: Mem0MemoryInput & Mem0MemoryExtendedInput & BufferMemoryExtendedInput & { searchOnly: boolean; useagentVizChatId: boolean } =
         {
             apiKey: apiKey,
             humanPrefix: nodeData.inputs?.humanPrefix as string,
@@ -198,7 +198,7 @@ const initializeMem0 = async (nodeData: INodeData, options: ICommonObject): Prom
             databaseEntities: options.databaseEntities as IDatabaseEntity,
             chatflowid: options.chatflowid as string,
             searchOnly: (nodeData.inputs?.searchOnly as boolean) || false,
-            useFlowiseChatId: useFlowiseChatId
+            useagentVizChatId: useagentVizChatId
         }
 
     return new Mem0MemoryExtended(obj)
@@ -206,7 +206,7 @@ const initializeMem0 = async (nodeData: INodeData, options: ICommonObject): Prom
 
 interface Mem0MemoryExtendedInput extends Mem0MemoryInput {
     memoryOptions?: MemoryOptions | SearchOptions
-    useFlowiseChatId: boolean
+    useagentVizChatId: boolean
 }
 
 class Mem0MemoryExtended extends BaseMem0Memory implements MemoryMethods {
@@ -218,10 +218,10 @@ class Mem0MemoryExtended extends BaseMem0Memory implements MemoryMethods {
     databaseEntities: IDatabaseEntity
     chatflowid: string
     searchOnly: boolean
-    useFlowiseChatId: boolean
+    useagentVizChatId: boolean
 
     constructor(
-        fields: Mem0MemoryInput & Mem0MemoryExtendedInput & BufferMemoryExtendedInput & { searchOnly: boolean; useFlowiseChatId: boolean }
+        fields: Mem0MemoryInput & Mem0MemoryExtendedInput & BufferMemoryExtendedInput & { searchOnly: boolean; useagentVizChatId: boolean }
     ) {
         super(fields)
         this.initialUserId = fields.memoryOptions?.user_id ?? ''
@@ -232,18 +232,18 @@ class Mem0MemoryExtended extends BaseMem0Memory implements MemoryMethods {
         this.databaseEntities = fields.databaseEntities
         this.chatflowid = fields.chatflowid
         this.searchOnly = fields.searchOnly
-        this.useFlowiseChatId = fields.useFlowiseChatId
+        this.useagentVizChatId = fields.useagentVizChatId
     }
 
-    // Selects Mem0 user_id based on toggle state (Flowise chat ID or input field)
+    // Selects Mem0 user_id based on toggle state (agentViz chat ID or input field)
     private getEffectiveUserId(overrideUserId?: string): string {
         let effectiveUserId: string | undefined
 
-        if (this.useFlowiseChatId) {
+        if (this.useagentVizChatId) {
             if (overrideUserId) {
                 effectiveUserId = overrideUserId
             } else {
-                throw new Error('Mem0: "Use Flowise Chat ID" is ON, but no runtime chat ID (overrideUserId) was provided.')
+                throw new Error('Mem0: "Use agentViz Chat ID" is ON, but no runtime chat ID (overrideUserId) was provided.')
             }
         } else {
             // If toggle is OFF, ALWAYS use the ID from the input field.
@@ -292,15 +292,15 @@ class Mem0MemoryExtended extends BaseMem0Memory implements MemoryMethods {
         returnBaseMessages = false,
         prependMessages?: IMessage[]
     ): Promise<IMessage[] | BaseMessage[]> {
-        const flowiseSessionId = overrideUserId
-        if (!flowiseSessionId) {
-            console.warn('Mem0: getChatMessages called without overrideUserId (Flowise Session ID). Cannot fetch DB messages.')
+        const agentVizSessionId = overrideUserId
+        if (!agentVizSessionId) {
+            console.warn('Mem0: getChatMessages called without overrideUserId (agentViz Session ID). Cannot fetch DB messages.')
             return []
         }
 
         let chatMessage = await this.appDataSource.getRepository(this.databaseEntities['ChatMessage']).find({
             where: {
-                sessionId: flowiseSessionId,
+                sessionId: agentVizSessionId,
                 chatflowid: this.chatflowid
             },
             order: {
@@ -361,13 +361,13 @@ class Mem0MemoryExtended extends BaseMem0Memory implements MemoryMethods {
         const effectiveUserId = this.getEffectiveUserId(overrideUserId)
         await this.clear(effectiveUserId)
 
-        const flowiseSessionId = overrideUserId
-        if (flowiseSessionId) {
+        const agentVizSessionId = overrideUserId
+        if (agentVizSessionId) {
             await this.appDataSource
                 .getRepository(this.databaseEntities['ChatMessage'])
-                .delete({ sessionId: flowiseSessionId, chatflowid: this.chatflowid })
+                .delete({ sessionId: agentVizSessionId, chatflowid: this.chatflowid })
         } else {
-            console.warn('Mem0: clearChatMessages called without overrideUserId (Flowise Session ID). Cannot clear DB messages.')
+            console.warn('Mem0: clearChatMessages called without overrideUserId (agentViz Session ID). Cannot clear DB messages.')
         }
     }
 }

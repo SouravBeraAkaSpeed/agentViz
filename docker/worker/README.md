@@ -1,10 +1,10 @@
-# Flowise Worker
+# agentViz Worker
 
-By utilizing worker instances when operating in queue mode, Flowise can be scaled horizontally by adding more workers to handle increased workloads or scaled down by removing workers when demand decreases.
+By utilizing worker instances when operating in queue mode, agentViz can be scaled horizontally by adding more workers to handle increased workloads or scaled down by removing workers when demand decreases.
 
 Here’s an overview of the process:
 
-1. The primary Flowise instance sends an execution ID to a message broker, Redis, which maintains a queue of pending executions, allowing the next available worker to process them.
+1. The primary agentViz instance sends an execution ID to a message broker, Redis, which maintains a queue of pending executions, allowing the next available worker to process them.
 2. A worker from the pool retrieves a message from Redis.
    The worker starts execute the actual job.
 3. Once the execution is completed, the worker alerts the main instance that the execution is finished.
@@ -13,7 +13,7 @@ Here’s an overview of the process:
 
 ## Setting up Main Server:
 
-1. Follow [setup guide](https://github.com/FlowiseAI/Flowise/blob/main/docker/README.md)
+1. Follow [setup guide](https://github.com/agentVizAI/agentViz/blob/main/docker/README.md)
 2. In the `.env.example`, setup all the necessary env variables for `QUEUE CONFIGURATION`
 
 ## Setting up Worker:

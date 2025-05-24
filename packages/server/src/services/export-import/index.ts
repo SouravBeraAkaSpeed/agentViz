@@ -11,7 +11,7 @@ import { DocumentStoreFileChunk } from '../../database/entities/DocumentStoreFil
 import { Execution } from '../../database/entities/Execution'
 import { Tool } from '../../database/entities/Tool'
 import { Variable } from '../../database/entities/Variable'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalagentVizError } from '../../errors/internalagentVizError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import assistantService from '../assistants'
@@ -77,7 +77,7 @@ const convertExportInput = (body: any): ExportInput => {
         if (body.variable && typeof body.variable !== 'boolean') throw new Error('Invalid variable property in ExportInput object')
         return body as ExportInput
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.convertExportInput - ${getErrorMessage(error)}`
         )
@@ -138,7 +138,7 @@ const exportData = async (exportInput: ExportInput): Promise<{ FileDefaultName: 
             Variable
         }
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.exportData - ${getErrorMessage(error)}`
         )
@@ -159,7 +159,7 @@ async function replaceDuplicateIdsForChatFlow(queryRunner: QueryRunner, original
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForChatflow - ${getErrorMessage(error)}`
         )
@@ -180,7 +180,7 @@ async function replaceDuplicateIdsForAssistant(queryRunner: QueryRunner, origina
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForAssistant - ${getErrorMessage(error)}`
         )
@@ -232,7 +232,7 @@ async function replaceDuplicateIdsForChatMessage(queryRunner: QueryRunner, origi
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForChatMessage - ${getErrorMessage(error)}`
         )
@@ -280,7 +280,7 @@ async function replaceExecutionIdForChatMessage(queryRunner: QueryRunner, origin
 
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceExecutionIdForChatMessage - ${getErrorMessage(error)}`
         )
@@ -360,7 +360,7 @@ async function replaceDuplicateIdsForChatMessageFeedback(
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForChatMessageFeedback - ${getErrorMessage(error)}`
         )
@@ -381,7 +381,7 @@ async function replaceDuplicateIdsForCustomTemplate(queryRunner: QueryRunner, or
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForCustomTemplate - ${getErrorMessage(error)}`
         )
@@ -402,7 +402,7 @@ async function replaceDuplicateIdsForDocumentStore(queryRunner: QueryRunner, ori
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForDocumentStore - ${getErrorMessage(error)}`
         )
@@ -427,7 +427,7 @@ async function replaceDuplicateIdsForDocumentStoreFileChunk(
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForDocumentStoreFileChunk - ${getErrorMessage(error)}`
         )
@@ -448,7 +448,7 @@ async function replaceDuplicateIdsForTool(queryRunner: QueryRunner, originalData
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForTool - ${getErrorMessage(error)}`
         )
@@ -469,7 +469,7 @@ async function replaceDuplicateIdsForVariable(queryRunner: QueryRunner, original
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForVariable - ${getErrorMessage(error)}`
         )
@@ -490,7 +490,7 @@ async function replaceDuplicateIdsForExecution(queryRunner: QueryRunner, origina
         }
         return originalData
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.replaceDuplicateIdsForExecution - ${getErrorMessage(error)}`
         )
@@ -595,7 +595,7 @@ const importData = async (importData: ExportData) => {
             if (queryRunner && !queryRunner.isReleased) await queryRunner.release()
         }
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: exportImportService.importAll - ${getErrorMessage(error)}`
         )

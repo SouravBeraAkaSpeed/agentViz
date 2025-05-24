@@ -1,40 +1,40 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_white.svg#gh-light-mode-only">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
+<img src="https://github.com/agentVizAI/agentViz/blob/main/images/agentViz_white.svg#gh-light-mode-only">
+<img src="https://github.com/agentVizAI/agentViz/blob/main/images/agentViz_dark.svg#gh-dark-mode-only">
 </p>
 
-[![发布说明](https://img.shields.io/github/release/FlowiseAI/Flowise)](https://github.com/FlowiseAI/Flowise/releases)
+[![发布说明](https://img.shields.io/github/release/agentVizAI/agentViz)](https://github.com/agentVizAI/agentViz/releases)
 [![Discord](https://img.shields.io/discord/1087698854775881778?label=Discord&logo=discord)](https://discord.gg/jbaHfsRVBW)
-[![Twitter关注](https://img.shields.io/twitter/follow/FlowiseAI?style=social)](https://twitter.com/FlowiseAI)
-[![GitHub星图](https://img.shields.io/github/stars/FlowiseAI/Flowise?style=social)](https://star-history.com/#FlowiseAI/Flowise)
-[![GitHub分支](https://img.shields.io/github/forks/FlowiseAI/Flowise?style=social)](https://github.com/FlowiseAI/Flowise/fork)
+[![Twitter关注](https://img.shields.io/twitter/follow/agentVizAI?style=social)](https://twitter.com/agentVizAI)
+[![GitHub星图](https://img.shields.io/github/stars/agentVizAI/agentViz?style=social)](https://star-history.com/#agentVizAI/agentViz)
+[![GitHub分支](https://img.shields.io/github/forks/agentVizAI/agentViz?style=social)](https://github.com/agentVizAI/agentViz/fork)
 
 [English](../README.md) | [繁體中文](./README-TW.md) | 简体中文 | [日本語](./README-JA.md) | [한국어](./README-KR.md)
 
 <h3>可视化构建 AI/LLM 流程</h3>
-<a href="https://github.com/FlowiseAI/Flowise">
-<img width="100%" src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_agentflow.gif?raw=true"></a>
+<a href="https://github.com/agentVizAI/agentViz">
+<img width="100%" src="https://github.com/agentVizAI/agentViz/blob/main/images/agentViz_agentflow.gif?raw=true"></a>
 
 ## ⚡ 快速入门
 
 下载并安装 [NodeJS](https://nodejs.org/en/download) >= 18.15.0
 
-1. 安装 Flowise
+1. 安装 agentViz
     ```bash
-    npm install -g flowise
+    npm install -g agentViz
     ```
-2. 启动 Flowise
+2. 启动 agentViz
 
     ```bash
-    npx flowise start
+    npx agentViz start
     ```
 
     使用用户名和密码
 
     ```bash
-    npx flowise start --FLOWISE_USERNAME=user --FLOWISE_PASSWORD=1234
+    npx agentViz start --agentViz_USERNAME=user --agentViz_PASSWORD=1234
     ```
 
 3. 打开 [http://localhost:3000](http://localhost:3000)
@@ -53,22 +53,22 @@
 
 1. 本地构建镜像：
     ```bash
-    docker build --no-cache -t flowise .
+    docker build --no-cache -t agentViz .
     ```
 2. 运行镜像：
 
     ```bash
-    docker run -d --name flowise -p 3000:3000 flowise
+    docker run -d --name agentViz -p 3000:3000 agentViz
     ```
 
 3. 停止镜像：
     ```bash
-    docker stop flowise
+    docker stop agentViz
     ```
 
 ## 👨‍💻 开发者
 
-Flowise 在一个单一的代码库中有 3 个不同的模块。
+agentViz 在一个单一的代码库中有 3 个不同的模块。
 
 -   `server`：用于提供 API 逻辑的 Node 后端
 -   `ui`：React 前端
@@ -86,13 +86,13 @@ Flowise 在一个单一的代码库中有 3 个不同的模块。
 1. 克隆仓库
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/agentVizAI/agentViz.git
     ```
 
 2. 进入仓库文件夹
 
     ```bash
-    cd Flowise
+    cd agentViz
     ```
 
 3. 安装所有模块的依赖：
@@ -129,51 +129,51 @@ Flowise 在一个单一的代码库中有 3 个不同的模块。
 
 ## 🔒 认证
 
-要启用应用程序级身份验证，在 `packages/server` 的 `.env` 文件中添加 `FLOWISE_USERNAME` 和 `FLOWISE_PASSWORD`：
+要启用应用程序级身份验证，在 `packages/server` 的 `.env` 文件中添加 `agentViz_USERNAME` 和 `agentViz_PASSWORD`：
 
 ```
-FLOWISE_USERNAME=user
-FLOWISE_PASSWORD=1234
+agentViz_USERNAME=user
+agentViz_PASSWORD=1234
 ```
 
 ## 🌱 环境变量
 
-Flowise 支持不同的环境变量来配置您的实例。您可以在 `packages/server` 文件夹中的 `.env` 文件中指定以下变量。了解更多信息，请阅读[文档](https://github.com/FlowiseAI/Flowise/blob/main/CONTRIBUTING.md#-env-variables)
+agentViz 支持不同的环境变量来配置您的实例。您可以在 `packages/server` 文件夹中的 `.env` 文件中指定以下变量。了解更多信息，请阅读[文档](https://github.com/agentVizAI/agentViz/blob/main/CONTRIBUTING.md#-env-variables)
 
 ## 📖 文档
 
-[Flowise 文档](https://docs.flowiseai.com/)
+[agentViz 文档](https://docs.agentVizai.com/)
 
 ## 🌐 自托管
 
-在您现有的基础设施中部署自托管的 Flowise，我们支持各种[部署](https://docs.flowiseai.com/configuration/deployment)
+在您现有的基础设施中部署自托管的 agentViz，我们支持各种[部署](https://docs.agentVizai.com/configuration/deployment)
 
--   [AWS](https://docs.flowiseai.com/deployment/aws)
--   [Azure](https://docs.flowiseai.com/deployment/azure)
--   [Digital Ocean](https://docs.flowiseai.com/deployment/digital-ocean)
--   [GCP](https://docs.flowiseai.com/deployment/gcp)
+-   [AWS](https://docs.agentVizai.com/deployment/aws)
+-   [Azure](https://docs.agentVizai.com/deployment/azure)
+-   [Digital Ocean](https://docs.agentVizai.com/deployment/digital-ocean)
+-   [GCP](https://docs.agentVizai.com/deployment/gcp)
 -   <details>
       <summary>其他</summary>
 
-    -   [Railway](https://docs.flowiseai.com/deployment/railway)
+    -   [Railway](https://docs.agentVizai.com/deployment/railway)
 
         [![在 Railway 上部署](https://railway.app/button.svg)](https://railway.app/template/pn4G8S?referralCode=WVNPD9)
 
-    -   [Render](https://docs.flowiseai.com/deployment/render)
+    -   [Render](https://docs.agentVizai.com/deployment/render)
 
-        [![部署到 Render](https://render.com/images/deploy-to-render-button.svg)](https://docs.flowiseai.com/deployment/render)
+        [![部署到 Render](https://render.com/images/deploy-to-render-button.svg)](https://docs.agentVizai.com/deployment/render)
 
-    -   [HuggingFace Spaces](https://docs.flowiseai.com/deployment/hugging-face)
+    -   [HuggingFace Spaces](https://docs.agentVizai.com/deployment/hugging-face)
 
-        <a href="https://huggingface.co/spaces/FlowiseAI/Flowise"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="HuggingFace Spaces"></a>
+        <a href="https://huggingface.co/spaces/agentVizAI/agentViz"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="HuggingFace Spaces"></a>
 
-    -   [Elestio](https://elest.io/open-source/flowiseai)
+    -   [Elestio](https://elest.io/open-source/agentVizai)
 
-        [![Deploy](https://pub-da36157c854648669813f3f76c526c2b.r2.dev/deploy-on-elestio-black.png)](https://elest.io/open-source/flowiseai)
+        [![Deploy](https://pub-da36157c854648669813f3f76c526c2b.r2.dev/deploy-on-elestio-black.png)](https://elest.io/open-source/agentVizai)
 
-    -   [Sealos](https://template.sealos.io/deploy?templateName=flowise)
+    -   [Sealos](https://template.sealos.io/deploy?templateName=agentViz)
 
-        [![部署到 Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://template.sealos.io/deploy?templateName=flowise)
+        [![部署到 Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://template.sealos.io/deploy?templateName=agentViz)
 
     -   [RepoCloud](https://repocloud.io/details/?app_id=29)
 
@@ -183,18 +183,18 @@ Flowise 支持不同的环境变量来配置您的实例。您可以在 `package
 
 ## ☁️ 云托管
 
-[开始使用云托管](https://flowiseai.com/)
+[开始使用云托管](https://agentVizai.com/)
 
 ## 🙋 支持
 
-在[讨论区](https://github.com/FlowiseAI/Flowise/discussions)中随时提问、提出问题和请求新功能
+在[讨论区](https://github.com/agentVizAI/agentViz/discussions)中随时提问、提出问题和请求新功能
 
 ## 🙌 贡献
 
 感谢这些了不起的贡献者
 
-<a href="https://github.com/FlowiseAI/Flowise/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=FlowiseAI/Flowise" />
+<a href="https://github.com/agentVizAI/agentViz/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=agentVizAI/agentViz" />
 </a>
 
 参见[贡献指南](CONTRIBUTING.md)。如果您有任何问题或问题，请在[Discord](https://discord.gg/jbaHfsRVBW)上与我们联系。

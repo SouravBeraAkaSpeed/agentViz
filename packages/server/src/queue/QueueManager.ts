@@ -11,7 +11,7 @@ import { createBullBoard } from 'bull-board'
 import { BullMQAdapter } from 'bull-board/bullMQAdapter'
 import { Express } from 'express'
 
-const QUEUE_NAME = process.env.QUEUE_NAME || 'flowise-queue'
+const QUEUE_NAME = process.env.QUEUE_NAME || 'agentViz-queue'
 
 type QUEUE_TYPE = 'prediction' | 'upsert'
 

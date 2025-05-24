@@ -134,7 +134,7 @@ class Tool_Agentflow implements INode {
 
             const newNodeData = {
                 ...nodeData,
-                credential: selectedToolConfig['FLOWISE_CREDENTIAL_ID'],
+                credential: selectedToolConfig['agentViz_CREDENTIAL_ID'],
                 inputs: {
                     ...nodeData.inputs,
                     ...selectedToolConfig
@@ -211,7 +211,7 @@ class Tool_Agentflow implements INode {
         const newToolNodeInstance = new nodeModule.nodeClass()
         const newNodeData = {
             ...nodeData,
-            credential: selectedToolConfig['FLOWISE_CREDENTIAL_ID'],
+            credential: selectedToolConfig['agentViz_CREDENTIAL_ID'],
             inputs: {
                 ...nodeData.inputs,
                 ...selectedToolConfig

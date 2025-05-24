@@ -1,13 +1,13 @@
-import { ICommonObject, removeFolderFromStorage } from 'flowise-components'
+import { ICommonObject, removeFolderFromStorage } from 'agentViz-components'
 import { StatusCodes } from 'http-status-codes'
 import { QueryRunner } from 'typeorm'
 import { ChatflowType, IReactFlowObject } from '../../Interface'
-import { FLOWISE_COUNTER_STATUS, FLOWISE_METRIC_COUNTERS } from '../../Interface.Metrics'
+import { agentViz_COUNTER_STATUS, agentViz_METRIC_COUNTERS } from '../../Interface.Metrics'
 import { ChatFlow } from '../../database/entities/ChatFlow'
 import { ChatMessage } from '../../database/entities/ChatMessage'
 import { ChatMessageFeedback } from '../../database/entities/ChatMessageFeedback'
 import { UpsertHistory } from '../../database/entities/UpsertHistory'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalagentVizError } from '../../errors/internalagentVizError'
 import { getErrorMessage } from '../../errors/utils'
 import documentStoreService from '../../services/documentstore'
 import { constructGraphs, getAppVersion, getEndingNodes, getTelemetryFlowObj, isFlowValidForStream } from '../../utils'
@@ -26,7 +26,7 @@ const checkIfChatflowIsValidForStreaming = async (chatflowId: string): Promise<a
             id: chatflowId
         })
         if (!chatflow) {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found`)
+            throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found`)
         }
 
         /* Check for post-processing settings, if available isStreamValid is always false */
@@ -70,7 +70,7 @@ const checkIfChatflowIsValidForStreaming = async (chatflowId: string): Promise<a
         const dbResponse = { isStreaming: isStreaming }
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.checkIfChatflowIsValidForStreaming - ${getErrorMessage(error)}`
         )
@@ -83,7 +83,7 @@ const checkIfChatflowIsValidForUploads = async (chatflowId: string): Promise<any
         const dbResponse = await utilGetUploadsConfig(chatflowId)
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.checkIfChatflowIsValidForUploads - ${getErrorMessage(error)}`
         )
@@ -112,7 +112,7 @@ const deleteChatflow = async (chatflowId: string): Promise<any> => {
         }
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.deleteChatflow - ${getErrorMessage(error)}`
         )
@@ -135,7 +135,7 @@ const getAllChatflows = async (type?: ChatflowType): Promise<ChatFlow[]> => {
         }
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.getAllChatflows - ${getErrorMessage(error)}`
         )
@@ -155,11 +155,11 @@ const getChatflowByApiKey = async (apiKeyId: string, keyonly?: unknown): Promise
 
         const dbResponse = await query.orderBy('cf.name', 'ASC').getMany()
         if (dbResponse.length < 1) {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Chatflow not found in the database!`)
+            throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Chatflow not found in the database!`)
         }
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.getChatflowByApiKey - ${getErrorMessage(error)}`
         )
@@ -173,11 +173,11 @@ const getChatflowById = async (chatflowId: string): Promise<any> => {
             id: chatflowId
         })
         if (!dbResponse) {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found in the database!`)
+            throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found in the database!`)
         }
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.getChatflowById - ${getErrorMessage(error)}`
         )
@@ -212,13 +212,13 @@ const saveChatflow = async (newChatFlow: ChatFlow): Promise<any> => {
             flowGraph: getTelemetryFlowObj(JSON.parse(dbResponse.flowData)?.nodes, JSON.parse(dbResponse.flowData)?.edges)
         })
         appServer.metricsProvider?.incrementCounter(
-            dbResponse?.type === 'MULTIAGENT' ? FLOWISE_METRIC_COUNTERS.AGENTFLOW_CREATED : FLOWISE_METRIC_COUNTERS.CHATFLOW_CREATED,
-            { status: FLOWISE_COUNTER_STATUS.SUCCESS }
+            dbResponse?.type === 'MULTIAGENT' ? agentViz_METRIC_COUNTERS.AGENTFLOW_CREATED : agentViz_METRIC_COUNTERS.CHATFLOW_CREATED,
+            { status: agentViz_COUNTER_STATUS.SUCCESS }
         )
 
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.saveChatflow - ${getErrorMessage(error)}`
         )
@@ -229,7 +229,7 @@ const importChatflows = async (newChatflows: Partial<ChatFlow>[], queryRunner?: 
     try {
         for (const data of newChatflows) {
             if (data.id && !validate(data.id)) {
-                throw new InternalFlowiseError(StatusCodes.PRECONDITION_FAILED, `Error: importChatflows - invalid id!`)
+                throw new InternalagentVizError(StatusCodes.PRECONDITION_FAILED, `Error: importChatflows - invalid id!`)
             }
         }
 
@@ -274,7 +274,7 @@ const importChatflows = async (newChatflows: Partial<ChatFlow>[], queryRunner?: 
 
         return insertResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.saveChatflows - ${getErrorMessage(error)}`
         )
@@ -293,7 +293,7 @@ const updateChatflow = async (chatflow: ChatFlow, updateChatFlow: ChatFlow): Pro
 
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.updateChatflow - ${getErrorMessage(error)}`
         )
@@ -310,14 +310,14 @@ const getSinglePublicChatflow = async (chatflowId: string): Promise<any> => {
         if (dbResponse && dbResponse.isPublic) {
             return dbResponse
         } else if (dbResponse && !dbResponse.isPublic) {
-            throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, `Unauthorized`)
+            throw new InternalagentVizError(StatusCodes.UNAUTHORIZED, `Unauthorized`)
         }
-        throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found`)
+        throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found`)
     } catch (error) {
-        if (error instanceof InternalFlowiseError && error.statusCode === StatusCodes.UNAUTHORIZED) {
+        if (error instanceof InternalagentVizError && error.statusCode === StatusCodes.UNAUTHORIZED) {
             throw error
         } else {
-            throw new InternalFlowiseError(
+            throw new InternalagentVizError(
                 StatusCodes.INTERNAL_SERVER_ERROR,
                 `Error: chatflowsService.getSinglePublicChatflow - ${getErrorMessage(error)}`
             )
@@ -334,7 +334,7 @@ const getSinglePublicChatbotConfig = async (chatflowId: string): Promise<any> =>
             id: chatflowId
         })
         if (!dbResponse) {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found`)
+            throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Chatflow ${chatflowId} not found`)
         }
         const uploadsConfig = await utilGetUploadsConfig(chatflowId)
         // even if chatbotConfig is not set but uploads are enabled
@@ -344,12 +344,12 @@ const getSinglePublicChatbotConfig = async (chatflowId: string): Promise<any> =>
                 const parsedConfig = dbResponse.chatbotConfig ? JSON.parse(dbResponse.chatbotConfig) : {}
                 return { ...parsedConfig, uploads: uploadsConfig, flowData: dbResponse.flowData }
             } catch (e) {
-                throw new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Error parsing Chatbot Config for Chatflow ${chatflowId}`)
+                throw new InternalagentVizError(StatusCodes.INTERNAL_SERVER_ERROR, `Error parsing Chatbot Config for Chatflow ${chatflowId}`)
             }
         }
         return 'OK'
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: chatflowsService.getSinglePublicChatbotConfig - ${getErrorMessage(error)}`
         )

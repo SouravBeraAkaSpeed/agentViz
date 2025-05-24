@@ -75,7 +75,7 @@ import {
 import useNotifier from '@/utils/useNotifier'
 
 // const
-import { baseURL, FLOWISE_CREDENTIAL_ID } from '@/store/constant'
+import { baseURL, agentViz_CREDENTIAL_ID } from '@/store/constant'
 import { closeSnackbar as closeSnackbarAction, enqueueSnackbar as enqueueSnackbarAction } from '@/store/actions'
 
 const EDITABLE_OPTIONS = ['selectedTool', 'selectedAssistant']
@@ -968,7 +968,7 @@ const NodeInputHandler = ({
                                 inputParam={inputParam}
                                 onSelect={(newValue) => {
                                     data.credential = newValue
-                                    data.inputs[FLOWISE_CREDENTIAL_ID] = newValue // in case data.credential is not updated
+                                    data.inputs[agentViz_CREDENTIAL_ID] = newValue // in case data.credential is not updated
                                 }}
                             />
                         )}

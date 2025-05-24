@@ -17,9 +17,9 @@ import { z } from 'zod'
 import { StructuredTool } from '@langchain/core/tools'
 import { AgentExecutor, JsonOutputToolsParser, ToolCallingAgentOutputParser } from '../../../src/agents'
 import { ChatMistralAI } from '@langchain/mistralai'
-import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/FlowiseChatOpenAI'
-import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/FlowiseChatAnthropic'
-import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/FlowiseChatGoogleGenerativeAI'
+import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/agentVizChatOpenAI'
+import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/agentVizChatAnthropic'
+import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/agentVizChatGoogleGenerativeAI'
 import { addImagesToMessages, llmSupportsVision } from '../../../src/multiModalUtils'
 
 const sysPrompt = `You are a supervisor tasked with managing a conversation between the following workers: {team_members}.

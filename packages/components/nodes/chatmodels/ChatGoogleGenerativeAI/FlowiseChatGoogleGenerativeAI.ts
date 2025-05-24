@@ -25,7 +25,7 @@ import { StructuredToolInterface } from '@langchain/core/tools'
 import { isStructuredTool } from '@langchain/core/utils/function_calling'
 import { zodToJsonSchema } from 'zod-to-json-schema'
 import { BaseLanguageModelCallOptions } from '@langchain/core/language_models/base'
-import type FlowiseGoogleAICacheManager from '../../cache/GoogleGenerativeAIContextCache/FlowiseGoogleAICacheManager'
+import type agentVizGoogleAICacheManager from '../../cache/GoogleGenerativeAIContextCache/agentVizGoogleAICacheManager'
 
 const DEFAULT_IMAGE_MAX_TOKEN = 8192
 const DEFAULT_IMAGE_MODEL = 'gemini-1.5-flash-latest'
@@ -89,7 +89,7 @@ class LangchainChatGoogleGenerativeAI
 
     private client: GenerativeModel
 
-    private contextCache?: FlowiseGoogleAICacheManager
+    private contextCache?: agentVizGoogleAICacheManager
 
     get _isMultimodalModel() {
         return this.modelName.includes('vision') || this.modelName.startsWith('gemini-1.5')
@@ -227,7 +227,7 @@ class LangchainChatGoogleGenerativeAI
         }
     }
 
-    setContextCache(contextCache: FlowiseGoogleAICacheManager): void {
+    setContextCache(contextCache: agentVizGoogleAICacheManager): void {
         this.contextCache = contextCache
     }
 

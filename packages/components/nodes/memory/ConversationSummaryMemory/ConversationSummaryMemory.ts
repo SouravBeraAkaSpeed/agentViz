@@ -1,5 +1,5 @@
 import {
-    FlowiseSummaryMemory,
+    agentVizSummaryMemory,
     IMessage,
     IDatabaseEntity,
     INode,
@@ -13,7 +13,7 @@ import { BaseLanguageModel } from '@langchain/core/language_models/base'
 import { BaseMessage, HumanMessage, SystemMessage } from '@langchain/core/messages'
 import { ConversationSummaryMemory, ConversationSummaryMemoryInput } from 'langchain/memory'
 import { DataSource } from 'typeorm'
-import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/FlowiseChatAnthropic'
+import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/agentVizChatAnthropic'
 
 class ConversationSummaryMemory_Memory implements INode {
     label: string
@@ -46,7 +46,7 @@ class ConversationSummaryMemory_Memory implements INode {
                 name: 'sessionId',
                 type: 'string',
                 description:
-                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.flowiseai.com/memory#ui-and-embedded-chat">more</a>',
+                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.agentVizai.com/memory#ui-and-embedded-chat">more</a>',
                 default: '',
                 optional: true,
                 additionalParams: true
@@ -91,7 +91,7 @@ interface BufferMemoryExtendedInput {
     chatflowid: string
 }
 
-class ConversationSummaryMemoryExtended extends FlowiseSummaryMemory implements MemoryMethods {
+class ConversationSummaryMemoryExtended extends agentVizSummaryMemory implements MemoryMethods {
     appDataSource: DataSource
     databaseEntities: IDatabaseEntity
     chatflowid: string

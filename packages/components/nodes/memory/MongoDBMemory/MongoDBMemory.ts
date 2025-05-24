@@ -9,7 +9,7 @@ import {
     getVersion,
     mapChatMessageToBaseMessage
 } from '../../../src/utils'
-import { FlowiseMemory, ICommonObject, IMessage, INode, INodeData, INodeParams, MemoryMethods, MessageType } from '../../../src/Interface'
+import { agentVizMemory, ICommonObject, IMessage, INode, INodeData, INodeParams, MemoryMethods, MessageType } from '../../../src/Interface'
 
 // TODO: Add ability to specify env variable and use singleton pattern (i.e initialize MongoDB on server and pass to component)
 
@@ -58,7 +58,7 @@ class MongoDB_Memory implements INode {
                 name: 'sessionId',
                 type: 'string',
                 description:
-                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.flowiseai.com/memory/long-term-memory#ui-and-embedded-chat">more</a>',
+                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.agentVizai.com/memory/long-term-memory#ui-and-embedded-chat">more</a>',
                 default: '',
                 additionalParams: true,
                 optional: true
@@ -86,7 +86,7 @@ const initializeMongoDB = async (nodeData: INodeData, options: ICommonObject): P
 
     const credentialData = await getCredentialData(nodeData.credential ?? '', options)
     const mongoDBConnectUrl = getCredentialParam('mongoDBConnectUrl', credentialData, nodeData)
-    const driverInfo = { name: 'Flowise', version: (await getVersion()).version }
+    const driverInfo = { name: 'agentViz', version: (await getVersion()).version }
 
     return new BufferMemoryExtended({
         memoryKey: memoryKey ?? 'chat_history',
@@ -110,7 +110,7 @@ interface BufferMemoryExtendedInput {
     }
 }
 
-class BufferMemoryExtended extends FlowiseMemory implements MemoryMethods {
+class BufferMemoryExtended extends agentVizMemory implements MemoryMethods {
     sessionId = ''
     mongoConnection: {
         databaseName: string

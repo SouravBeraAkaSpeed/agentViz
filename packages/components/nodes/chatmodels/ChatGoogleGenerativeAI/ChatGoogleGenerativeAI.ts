@@ -4,8 +4,8 @@ import { BaseCache } from '@langchain/core/caches'
 import { ICommonObject, IMultiModalOption, INode, INodeData, INodeOptionsValue, INodeParams } from '../../../src/Interface'
 import { convertMultiOptionsToStringArray, getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
 import { getModels, MODEL_TYPE } from '../../../src/modelLoader'
-import { ChatGoogleGenerativeAI, GoogleGenerativeAIChatInput } from './FlowiseChatGoogleGenerativeAI'
-import type FlowiseGoogleAICacheManager from '../../cache/GoogleGenerativeAIContextCache/FlowiseGoogleAICacheManager'
+import { ChatGoogleGenerativeAI, GoogleGenerativeAIChatInput } from './agentVizChatGoogleGenerativeAI'
+import type agentVizGoogleAICacheManager from '../../cache/GoogleGenerativeAIContextCache/agentVizGoogleAICacheManager'
 
 class GoogleGenerativeAI_ChatModels implements INode {
     label: string
@@ -177,7 +177,7 @@ class GoogleGenerativeAI_ChatModels implements INode {
                 name: 'allowImageUploads',
                 type: 'boolean',
                 description:
-                    'Allow image input. Refer to the <a href="https://docs.flowiseai.com/using-flowise/uploads#image" target="_blank">docs</a> for more details.',
+                    'Allow image input. Refer to the <a href="https://docs.agentVizai.com/using-agentViz/uploads#image" target="_blank">docs</a> for more details.',
                 default: false,
                 optional: true
             }
@@ -204,7 +204,7 @@ class GoogleGenerativeAI_ChatModels implements INode {
         const harmCategory = nodeData.inputs?.harmCategory as string
         const harmBlockThreshold = nodeData.inputs?.harmBlockThreshold as string
         const cache = nodeData.inputs?.cache as BaseCache
-        const contextCache = nodeData.inputs?.contextCache as FlowiseGoogleAICacheManager
+        const contextCache = nodeData.inputs?.contextCache as agentVizGoogleAICacheManager
         const streaming = nodeData.inputs?.streaming as boolean
         const baseUrl = nodeData.inputs?.baseUrl as string | undefined
 

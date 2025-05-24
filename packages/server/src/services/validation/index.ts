@@ -1,9 +1,9 @@
 import { StatusCodes } from 'http-status-codes'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalagentVizError } from '../../errors/internalagentVizError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { ChatFlow } from '../../database/entities/ChatFlow'
-import { INodeParams } from 'flowise-components'
+import { INodeParams } from 'agentViz-components'
 import { IReactFlowEdge, IReactFlowNode } from '../../Interface'
 
 interface IValidationResult {
@@ -26,7 +26,7 @@ const checkFlowValidation = async (flowId: string): Promise<IValidationResult[]>
         })
 
         if (!flow) {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Error: validationService.checkFlowValidation - flow not found!`)
+            throw new InternalagentVizError(StatusCodes.NOT_FOUND, `Error: validationService.checkFlowValidation - flow not found!`)
         }
 
         const flowData = JSON.parse(flow.flowData)
@@ -239,7 +239,7 @@ const checkFlowValidation = async (flowId: string): Promise<IValidationResult[]>
 
                             // Check for credential requirement in the component
                             if (componentNodes[componentName].credential && !componentNodes[componentName].credential.optional) {
-                                if (!configValue.FLOWISE_CREDENTIAL_ID && !configValue.credential) {
+                                if (!configValue.agentViz_CREDENTIAL_ID && !configValue.credential) {
                                     nodeIssues.push(`${param.label} requires a credential`)
                                 }
                             }
@@ -314,7 +314,7 @@ const checkFlowValidation = async (flowId: string): Promise<IValidationResult[]>
 
         return validationResults
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalagentVizError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: validationService.checkFlowValidation - ${getErrorMessage(error)}`
         )

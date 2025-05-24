@@ -26,8 +26,8 @@ import { formatLogToString } from 'langchain/agents/format_scratchpad/log'
 import { IUsedTool } from './Interface'
 import { getErrorMessage } from './error'
 
-export const SOURCE_DOCUMENTS_PREFIX = '\n\n----FLOWISE_SOURCE_DOCUMENTS----\n\n'
-export const ARTIFACTS_PREFIX = '\n\n----FLOWISE_ARTIFACTS----\n\n'
+export const SOURCE_DOCUMENTS_PREFIX = '\n\n----agentViz_SOURCE_DOCUMENTS----\n\n'
+export const ARTIFACTS_PREFIX = '\n\n----agentViz_ARTIFACTS----\n\n'
 
 export type AgentFinish = {
     returnValues: Record<string, any>

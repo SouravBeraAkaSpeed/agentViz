@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 import { z } from 'zod'
-import { NodeVM } from '@flowiseai/nodevm'
+import { NodeVM } from '@agentVizai/nodevm'
 import { RunnableConfig } from '@langchain/core/runnables'
 import { CallbackManagerForToolRun, Callbacks, CallbackManager, parseCallbackConfigArg } from '@langchain/core/callbacks/manager'
 import { StructuredTool } from '@langchain/core/tools'
@@ -76,7 +76,7 @@ class ChatflowTool_Tools implements INode {
                 name: 'baseURL',
                 type: 'string',
                 description:
-                    'Base URL to Flowise. By default, it is the URL of the incoming request. Useful when you need to execute the Chatflow through an alternative route.',
+                    'Base URL to agentViz. By default, it is the URL of the incoming request. Useful when you need to execute the Chatflow through an alternative route.',
                 placeholder: 'http://localhost:3000',
                 optional: true,
                 additionalParams: true
@@ -313,7 +313,7 @@ class ChatflowTool extends StructuredTool {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'flowise-tool': 'true',
+                'agentViz-tool': 'true',
                 ...this.headers
             },
             body: JSON.stringify(body)
